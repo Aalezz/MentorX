@@ -1,16 +1,29 @@
 # 🎓 MentorX
 
-> **MentorX** is an AI-powered learning assistant with chat, quiz generation, and student progress tracking.
+> **MentorX** is an AI-powered personal learning assistant that lets you chat with your documents, generate quizzes, build personalized study paths, and track your progress — all running 100% locally on your machine.
 
 ---
 
 ## ✨ Features
 
-- 🤖 **AI Chat** — Conversational learning assistant powered by Ollama (local LLM)
-- 📝 **Quiz Generation** — Automatically generate quizzes on any topic
-- 📊 **Progress Tracking** — Monitor student learning progress over time
-- 🗄️ **MongoDB Integration** — Persistent data storage (optional)
-- 🌐 **Web Interface** — Clean, responsive Flask-based UI
+- 🤖 **AI Chat** — Ask questions and get intelligent answers powered by Mistral 7B running locally
+- 📄 **Document Understanding** — Upload your files and chat with them using RAG (Retrieval-Augmented Generation)
+- 🎥 **YouTube Support** — Paste a YouTube link and ask questions about the video content
+- 📝 **Quiz Generation** — Auto-generate quizzes from any topic or uploaded document to test your knowledge
+- 🗺️ **Student Learning Path** — Get a personalized learning roadmap and structured curriculum tailored to your goals and current level
+- 📊 **Progress Tracking** — Monitor your learning milestones over time
+- 🌐 **Interactive UI** — Clean, easy-to-use interface built with Gradio
+
+---
+
+## 📂 Supported File Types
+
+| Type | Formats |
+|---|---|
+| Documents | PDF, DOCX, DOC |
+| Presentations | PPTX, PPT |
+| Text | TXT, MD, CSV |
+| Video | YouTube URLs |
 
 ---
 
@@ -18,10 +31,12 @@
 
 | Layer | Technology |
 |---|---|
-| Backend | Python · Flask |
-| AI Engine | Ollama · Llama 7B (local) |
-| Database | MongoDB (optional) |
-| Environment | python-dotenv |
+| UI | Gradio |
+| Backend | Python |
+| AI Model | Ollama · Mistral 7B (local) |
+| RAG Framework | LangChain |
+| Vector Database | ChromaDB |
+| PDF Processing | PyMuPDF · pypdf |
 
 ---
 
@@ -31,26 +46,15 @@
 
 - Python 3.10+
 - [Ollama](https://ollama.com) installed and running locally
-- MongoDB URI *(optional — the app works without it)*
 
-### 1. Install Ollama & Pull the Model
-
-```bash
-# Install Ollama from https://ollama.com/download
-# Then pull the Llama 7B model
-ollama pull llama2
-```
-
-> Make sure Ollama is running before starting the app. By default it listens on `http://localhost:11434`.
-
-### 2. Clone & Install
+### Installation
 
 ```bash
-# Clone the repository
+# 1. Clone the repository
 git clone https://github.com/Aalezz/MentorX.git
 cd MentorX
 
-# Create and activate a virtual environment
+# 2. Create and activate a virtual environment
 python -m venv .venv
 
 # Windows
@@ -59,65 +63,17 @@ python -m venv .venv
 # macOS / Linux
 source .venv/bin/activate
 
-# Install dependencies
+# 3. Install dependencies
 pip install -r requirements.txt
 
-# Set up environment variables
-cp .env.example .env
-```
+# 4. Install Ollama and pull the model automatically
+python modelinstall.py
 
-### 3. Configure Environment
-
-Open `.env` and fill in your values:
-
-```env
-# Flask secret key (change this to a random string)
-SECRET_KEY=your-random-secret-key
-
-# Ollama settings
-OLLAMA_HOST=http://localhost:11434
-OLLAMA_MODEL=llama2
-
-# Optional
-MONGODB_URI=mongodb+srv://...
-PORT=5000
-```
-
-> ⚠️ **Never commit your `.env` file.** It is already listed in `.gitignore`.
-
-### 4. Run the App
-
-```bash
+# 5. Run the app
 python app.py
 ```
 
-Then open your browser at [http://localhost:5000](http://localhost:5000)
-
----
-
-## 📁 Project Structure
-
-```
-MentorX/
-├── app.py                 # Main Flask application
-├── requirements.txt       # Python dependencies
-├── .env.example           # Environment variable template
-├── .gitignore
-├── static/                # CSS, JS, images
-└── templates/             # HTML templates (Jinja2)
-```
-
----
-
-## 🔑 Environment Variables
-
-| Variable | Required | Description |
-|---|---|---|
-| `SECRET_KEY` | ✅ Yes | Flask session secret — use a long random string |
-| `OLLAMA_HOST` | ✅ Yes | Ollama server URL (default: `http://localhost:11434`) |
-| `OLLAMA_MODEL` | ✅ Yes | Model to use (default: `llama2`) |
-| `MONGODB_URI` | ❌ No | MongoDB connection string for persistent storage |
-| `PORT` | ❌ No | Port to run the server on (default: `5000`) |
+Gradio will open automatically in your browser. 🎉
 
 ---
 
@@ -140,5 +96,5 @@ This project is licensed under the MIT License.
 ---
 
 <div align="center">
-  Built with ❤️ using <a href="https://ollama.com">Ollama</a> · Runs 100% locally
+  Built with ❤️ using <a href="https://ollama.com">Ollama</a> · <a href="https://gradio.app">Gradio</a> · <a href="https://python.langchain.com">LangChain</a> · Runs 100% locally
 </div>
